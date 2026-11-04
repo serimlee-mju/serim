@@ -1,0 +1,288 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #ffffff;
+  color: #000000;
+  font-family: "Afacad", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poster {
+  width: 100vw;
+  height: 56.25vw;
+  max-height: 100vh;
+  max-width: 177.78vh;
+  padding: 3.5rem 4rem;
+  display: grid;
+  grid-template-columns: 380px 1fr 280px;
+  grid-template-rows: 1fr auto;
+  gap: 2rem;
+  position: relative;
+  background-color: #ffffff;
+}
+
+.water-background {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  background-color: rgba(180, 220, 240, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.water-wave {
+  position: absolute;
+  top: -15px;
+  left: -10%;
+  width: 120%;
+  height: 30px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.6) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  animation: waveMotion 6s infinite ease-in-out;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 20;
+}
+
+.moma-badge {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 5.2rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  border-top: 2px solid #000000;
+  padding-top: 1.2rem;
+}
+
+.stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.shark-character {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transform: translateY(20px);
+}
+
+/* 1번 원: 상어색(#0A192F) - 평소 삼각형 지느러미 */
+.shark-shape {
+  width: 180px;
+  height: 220px;
+  background-color: #0a192f;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  border-radius: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    clip-path 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    background-color 0.25s ease,
+    border-radius 0.25s ease,
+    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: sharkFloat 3.5s infinite ease-in-out;
+}
+
+/* 2번 원: 흰색(#FFFFFF) 중층 라인 */
+.white-ring {
+  width: 0px;
+  height: 0px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    opacity 0.2s ease;
+}
+
+/* 3번 원: 검붉은색(#5A0000) 동공 */
+.pupil {
+  width: 0px;
+  height: 0px;
+  background-color: #5a0000;
+  border-radius: 50%;
+  opacity: 0;
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    opacity 0.2s ease;
+}
+
+/* 클릭 시: 원 3개의 깜짝 눈동자 변형 */
+.shark-character.active .shark-shape {
+  width: 200px;
+  height: 200px;
+  background-color: #0a192f; /* 1. 상어색 외곽 원 */
+  clip-path: circle(50% at 50% 50%);
+  border-radius: 50%;
+  animation: shakeEye 0.15s infinite alternate ease-in-out;
+  transform: scale(1.7);
+}
+
+.shark-character.active .white-ring {
+  width: 130px;
+  height: 130px;
+  opacity: 1; /* 2. 흰색 중간 원 등장 */
+}
+
+.shark-character.active .pupil {
+  width: 65px;
+  height: 65px;
+  opacity: 1; /* 3. 검붉은색 중심 원 등장 */
+}
+
+.side-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  text-align: right;
+  z-index: 20;
+}
+
+.description {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.date-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.big-date {
+  font-size: 4.2rem;
+  font-weight: 800;
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+}
+
+.year {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-top: 0.2rem;
+}
+
+.footer {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  border-top: 1px solid #000000;
+  padding-top: 1.2rem;
+  margin-top: 1rem;
+  z-index: 20;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #888888;
+  letter-spacing: 0.08em;
+}
+
+.value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+  letter-spacing: 0.02em;
+}
+
+@keyframes sharkFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(2deg);
+  }
+}
+
+@keyframes shakeEye {
+  0% {
+    transform: scale(1.7) translate(-3px, -3px);
+  }
+  100% {
+    transform: scale(1.7) translate(3px, 3px);
+  }
+}
+
+@keyframes waveMotion {
+  0%,
+  100% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(30px) scaleY(1.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shark-shape,
+  .water-wave {
+    animation: none !important;
+  }
+}
